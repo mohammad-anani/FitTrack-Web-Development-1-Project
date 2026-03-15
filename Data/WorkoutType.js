@@ -1,4 +1,4 @@
-import { getAll } from "./tablesManager";
+import { getAll } from "./util/tablesManager.js";
 
 const tableName = "types";
 

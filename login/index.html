@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="./script.js" type="module"></script>
+    <script src="../Data/init.js" defer type="module"></script>
+    <title>Login</title>
+  </head>
+  <body>
+    <h1>Login</h1>
+    <form id="form">
+      <label for="email">Email:</label>
+      <input required name="email" type="email" id="email" />
+      <span id="emailValidation">required</span>
+      <label for="password">Password:</label>
+      <input required name="password" type="password" id="password" />
+      <span id="passwordValidation">required</span>
+      <input type="checkbox" id="rememberMe" />
+      <label for="rememberMe">Remember Me</label>
+      <span id="loginFailed"></span>
+      <button id="submit" type="submit">Submit</button>
+      <button id="reset" type="reset">Clear</button>
+    </form>
+  </body>
+</html>

@@ -17,7 +17,7 @@ export function validatePasswordWithMessage(password) {
     }
 
     if (char >= "A" && char <= "Z") {
-      hasUpperCase = true;
+      hasUppercase = true;
       continue;
     }
 

@@ -1,5 +1,5 @@
-import { Goal } from "./goal";
-import { encryptPassword } from "./passwordManager";
+import { Goal } from "./Goal.js";
+import { encryptPassword } from "./util/passwordManager.js";
 import {
   add,
   deleteByID,
@@ -7,7 +7,7 @@ import {
   getByID,
   idExists,
   updateByID,
-} from "./tablesManager";
+} from "./util/tablesManager.js";
 
 const tableName = "users";
 const idKey = "id";

@@ -1,4 +1,10 @@
-import { add, deleteByID, getAll, getByID, updateByID } from "./tablesManager";
+import {
+  add,
+  deleteByID,
+  getAll,
+  getByID,
+  updateByID,
+} from "./util/tablesManager.js";
 
 const tableName = "workouts";
 const idKey = "id";
@@ -35,8 +41,20 @@ export class Workout {
     );
   }
 
-  static getAllWorkouts(filter = null, sortKey = [], isAsc = true) {
-    const data = getAll(tableName, filter, sortKey, isAsc);
+  static getAllWorkouts(
+    filter = null,
+    sortKey = "date",
+    isAsc = false,
+    dateRange = null,
+  ) {
+    let data = getAll(tableName, filter, sortKey, isAsc);
+
+    if (dateRange && dateRange[0] && dateRange[1]) {
+      data = data.filter((workout) => {
+        return workout.date >= dateRange[0] && workout.date <= dateRange[1];
+      });
+    }
+
     return data.map((obj) => Workout.createInstance(obj));
   }
 

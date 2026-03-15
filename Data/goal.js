@@ -4,9 +4,9 @@ import {
   getAll,
   getByID,
   updateByID,
-} from "./util/tablesManager";
+} from "./util/tablesManager.js";
 
-import { Workout } from "./workout";
+import { Workout } from "./Workout.js";
 
 const tableName = "goals";
 const idKey = "id";

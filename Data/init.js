@@ -15,3 +15,5 @@ export function initTablesInLocalStorage() {
     localStorage.setItem("tableSequences", JSON.stringify(sequences));
   }
 }
+
+initTablesInLocalStorage();

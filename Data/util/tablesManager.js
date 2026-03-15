@@ -1,4 +1,4 @@
-import { increment } from "./tableSequence";
+import { increment } from "./tableSequence.js";
 
 function filterRowCallback(kvp_filter) {
   return (row) => {
