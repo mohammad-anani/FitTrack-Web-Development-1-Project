@@ -4,7 +4,7 @@ import {
   getAll,
   getByID,
   updateByID,
-} from "./util/tablesManager.js";
+} from "./util/localStorageManager.js";
 
 import { Workout } from "./Workout.js";
 
@@ -99,10 +99,10 @@ export class Goal {
     return !!Goal.getCurrentUserGoal(userId);
   }
 
-  static getGoalWorkouts(goalId) {
+  static async getGoalWorkouts(goalId) {
     const goal = Goal.getGoalById(goalId);
     const { monday, sunday } = Goal.getWeekRange(goal.weekStartDate);
-    const userWorkouts = Workout.getWorkoutsByUser(goal.userId);
+    const userWorkouts = await Workout.getWorkoutsByUser(goal.userId);
     return userWorkouts.filter((workout) => {
       return workout.date >= monday && workout.date <= sunday;
     });
@@ -112,11 +112,11 @@ export class Goal {
     return Goal.getAllGoals([["userId", userId]]);
   }
 
-  static getGoalStats(goalId) {
+  static async getGoalStats(goalId) {
     const goal = Goal.getGoalById(goalId);
     if (!goal) return null;
 
-    const workoutsInGoalWeek = Goal.getGoalWorkouts(goalId);
+    const workoutsInGoalWeek = await Goal.getGoalWorkouts(goalId);
 
     const weeklyCalories =
       workoutsInGoalWeek?.reduce(

@@ -9,7 +9,7 @@ const user = User.createInstance(
 const currentGoal = Goal.getCurrentUserGoal(user.id);
 
 if (currentGoal) {
-  const stats = Goal.getGoalStats(currentGoal.id);
+  const stats = await Goal.getGoalStats(currentGoal.id);
   currentGoalDiv.innerHTML = `<h2>Current Goal (${currentGoal.weekStartDate})</h2>
 <span>Calories:</span>
 <progress id="caloriesProgress"

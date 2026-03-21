@@ -4,7 +4,7 @@ import {
   getAll,
   getByID,
   updateByID,
-} from "./util/tablesManager.js";
+} from "./util/jsonStorageManager.js";
 
 const tableName = "workouts";
 const idKey = "id";
@@ -41,13 +41,13 @@ export class Workout {
     );
   }
 
-  static getAllWorkouts(
+  static async getAllWorkouts(
     filter = null,
     sortKey = "date",
     isAsc = false,
     dateRange = null,
   ) {
-    let data = getAll(tableName, filter, sortKey, isAsc);
+    let data = await getAll(tableName, filter, sortKey, isAsc);
 
     if (dateRange && dateRange[0] && dateRange[1]) {
       data = data.filter((workout) => {
@@ -58,13 +58,13 @@ export class Workout {
     return data.map((obj) => Workout.createInstance(obj));
   }
 
-  static getWorkoutsByUser(
+  static async getWorkoutsByUser(
     userId,
     filter = null,
     sortKey = null,
     isAsc = true,
   ) {
-    const data = getAll(
+    const data = await getAll(
       tableName,
       [["userId", userId], ...(filter ?? [])],
       sortKey,
@@ -73,20 +73,20 @@ export class Workout {
     return data.map((obj) => Workout.createInstance(obj));
   }
 
-  static getWorkoutByID(id) {
-    const data = getByID(tableName, id, idKey);
+  static async getWorkoutByID(id) {
+    const data = await getByID(tableName, id, idKey);
     return Workout.createInstance(data);
   }
 
-  addWorkout() {
-    return add(tableName, { ...this }, idKey);
+  async addWorkout() {
+    return await add(tableName, { ...this }, idKey);
   }
 
-  updateWorkout() {
-    return updateByID(tableName, { ...this }, idKey);
+  async updateWorkout() {
+    return await updateByID(tableName, { ...this }, idKey);
   }
 
-  static deleteWorkoutByID(id) {
-    return deleteByID(tableName, id, idKey);
+  static async deleteWorkoutByID(id) {
+    return await deleteByID(tableName, id, idKey);
   }
 }

@@ -20,7 +20,7 @@ const user = User.createInstance(
   JSON.parse(sessionStorage.getItem("currentUser")),
 );
 
-const types = WorkoutType.getAllTypes();
+const types = await WorkoutType.getAllTypes();
 types.forEach((type) => {
   const option = document.createElement("option");
   option.value = type;
@@ -34,6 +34,20 @@ nameInput.addEventListener("input", () => {
       ? "Minimum name length is 3 characters"
       : "";
 });
+
+// dateInput.addEventListener("input", () => {
+//   const selectedDate = new Date(dateInput.value);
+//   const today = new Date();
+//   today.setHours(0, 0, 0, 0);
+
+//   if (dateInput.value === "") {
+//     dateValidation.textContent = "Please select a date";
+//   } else if (selectedDate < today) {
+//     dateValidation.textContent = "Date cannot be in the past";
+//   } else {
+//     dateValidation.textContent = "";
+//   }
+// });
 
 typeSelect.addEventListener("change", () => {
   typeValidation.textContent =
@@ -50,7 +64,7 @@ caloriesInput.addEventListener("input", () => {
     caloriesInput.value <= 0 ? "Calories must be greater than 0" : "";
 });
 
-form.addEventListener("submit", (e) => {
+form.addEventListener("submit", async (e) => {
   e.preventDefault();
 
   const isValid =
@@ -58,6 +72,7 @@ form.addEventListener("submit", (e) => {
     typeValidation.textContent === "" &&
     durationValidation.textContent === "" &&
     caloriesValidation.textContent === "" &&
+    dateValidation.textContent === "" &&
     dateInput.value !== "";
 
   if (!isValid) return;
@@ -72,7 +87,7 @@ form.addEventListener("submit", (e) => {
     parseInt(caloriesInput.value),
   );
 
-  const success = workout.addWorkout();
+  const success = await workout.addWorkout();
 
   if (success) {
     window.location.href = "/workouts"; // Or wherever you'd like to redirect

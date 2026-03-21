@@ -1,31 +1,4 @@
-import { increment } from "./tableSequence.js";
-
-function filterRowCallback(kvp_filter) {
-  return (row) => {
-    for (const [key, value] of kvp_filter) {
-      if (typeof value === "string" && row[key]?.includes(value)) {
-        continue;
-      }
-      if (row[key] !== value) {
-        return false;
-      }
-    }
-    return true;
-  };
-}
-
-function sortRowsCallback(key, asc = true) {
-  return (a, b) => {
-    const valA = a[key];
-    const valB = b[key];
-    if (valA === valB) return 0;
-    if (valA == null) return 1;
-    if (valB == null) return -1;
-    if (valA < valB) return asc ? -1 : 1;
-    if (valA > valB) return asc ? 1 : -1;
-    return 0;
-  };
-}
+import { filterRowCallback, sortRowsCallback } from "./util.js";
 
 function getAll(tableName, kvp_filter = null, sortingKey = null, isAsc = true) {
   if (!tableName || typeof tableName !== "string") return null;
@@ -83,6 +56,17 @@ function deleteByID(tableName, id, idKey = "id") {
 
 function idExists(tableName, id, idKey = "id") {
   return !!getByID(tableName, id, idKey);
+}
+
+const sequencesKey = "tableSequences";
+
+function increment(tableName) {
+  const sequences = JSON.parse(localStorage.getItem(sequencesKey) || "{}");
+  const current = sequences[tableName] ?? 0;
+  const next = current + 1;
+  sequences[tableName] = next;
+  localStorage.setItem(sequencesKey, JSON.stringify(sequences));
+  return next;
 }
 
 export { add, deleteByID, getAll, getByID, idExists, updateByID };

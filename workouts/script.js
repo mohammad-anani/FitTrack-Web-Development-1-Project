@@ -10,7 +10,7 @@ const fromInput = document.getElementById("from");
 const toInput = document.getElementById("to");
 const nameInput = document.getElementById("name");
 
-const types = WorkoutType.getAllTypes();
+const types = await WorkoutType.getAllTypes();
 types.forEach((type) => {
   const option = document.createElement("option");
   option.value = type;
@@ -40,15 +40,15 @@ function render(workouts) {
       : "NO WORKOUTS";
 
   document.querySelectorAll(".delete-workout").forEach((element) => {
-    element.addEventListener("click", (e) => {
+    element.addEventListener("click", async (e) => {
       const id = e.target.dataset.id;
-      Workout.deleteWorkoutByID(Number(id));
+      await Workout.deleteWorkoutByID(Number(id));
       window.location.reload();
     });
   });
 }
 
-function applyFilters() {
+async function applyFilters() {
   const filters = [];
 
   if (typeSelect.value) filters.push(["type", typeSelect.value]);
@@ -58,7 +58,12 @@ function applyFilters() {
   const isAsc =
     document.querySelector("input[name='order']:checked")?.value === "asc";
 
-  let workouts = Workout.getWorkoutsByUser(user.id, filters, sortKey, isAsc);
+  let workouts = await Workout.getWorkoutsByUser(
+    user.id,
+    filters,
+    sortKey,
+    isAsc,
+  );
 
   if (fromInput.value)
     workouts = workouts.filter(
