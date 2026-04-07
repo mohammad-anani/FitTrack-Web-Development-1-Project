@@ -34,7 +34,7 @@ export async function renderSetGoal(currentGoalDiv, user) {
         </div>
       </section>
 
-      <button type="submit">Set</button>
+      <button class='primary' type="submit">Set</button>
     </form>
   `;
 

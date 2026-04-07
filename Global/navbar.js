@@ -7,8 +7,8 @@ const navLinks = document.querySelectorAll(".nav-link");
 const logoutButton = document.querySelector(".logout");
 const loadingDiv = document.querySelector(".loading-div");
 
-setSelectedNavlink();
 fillInfo();
+setSelectedNavlink();
 addNavButtonsEventListener();
 addLogoutEventListener();
 
@@ -26,6 +26,11 @@ function setSelectedNavlink() {
 
 function fillInfo() {
   const user = User.getCurrentUser();
+
+  if (!user) {
+    window.location.href = "/login";
+    return;
+  }
   nameSpan.textContent = user.name;
 }
 
