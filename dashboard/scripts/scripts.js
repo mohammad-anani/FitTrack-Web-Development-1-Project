@@ -1,7 +1,7 @@
-import { Goal } from "../Data/Goal.js";
-import { User } from "../Data/User.js";
-import { Workout } from "../Data/Workout.js";
-import { navigate } from "../Global/navbar.js";
+import { Goal } from "../../Data/Goal.js";
+import { User } from "../../Data/User.js";
+import { Workout } from "../../Data/Workout.js";
+import { navigate } from "../../Global/navbar.js";
 import { renderCurrentGoal } from "./goalProgress.js";
 
 const user = User.getCurrentUser();
